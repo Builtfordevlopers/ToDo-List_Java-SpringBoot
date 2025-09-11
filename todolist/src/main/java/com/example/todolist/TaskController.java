@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-@CrossOrigin(origins = "http://localhost:5173") 
+@CrossOrigin(origins = "*") // Allows requests from any origin
 @RestController // Marks this class as a REST controller
 @RequestMapping("/api/tasks") // All endpoints in this class will start with /api/tasks
 public class TaskController {
