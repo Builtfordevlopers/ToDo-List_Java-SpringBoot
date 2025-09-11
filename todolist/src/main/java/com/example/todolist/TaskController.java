@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-@CrossOrigin(origins = "https://to-do-list-java-spring-boot-4sln6xnyz.vercel.app")
+@CrossOrigin(origins = "https://to-do-list-java-spring-boot-4sln6myrz.vercel.app")
 @RestController
 @RequestMapping("/api/tasks") // All endpoints in this class will start with /api/tasks
 public class TaskController {
