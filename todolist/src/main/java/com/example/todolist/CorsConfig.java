@@ -13,7 +13,7 @@ public class CorsConfig {
         return new WebMvcConfigurer() {
             @Override
             public void addCorsMappings(CorsRegistry registry) {
-                registry.addMapping("/**") // allow all endpoints
+                registry.addMapping("/api/**")
                         .allowedOrigins(
                             "https://to-do-list-java-spring-boot.vercel.app",
                             "https://to-do-list-java-spring-boot-git-main-builtfordevlopers-projects.vercel.app"
