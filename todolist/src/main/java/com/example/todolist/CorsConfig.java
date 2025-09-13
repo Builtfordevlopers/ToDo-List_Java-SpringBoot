@@ -15,7 +15,7 @@ public class CorsConfig {
             public void addCorsMappings(CorsRegistry registry) {
                 registry.addMapping("/**") // allow all endpoints
                         .allowedOrigins(
-                                "*"
+                                "https://to-do-list-java-spring-boot.vercel.app"
                         )
                         .allowedMethods("GET", "POST", "DELETE", "PUT", "OPTIONS")
                         .allowedHeaders("*");
