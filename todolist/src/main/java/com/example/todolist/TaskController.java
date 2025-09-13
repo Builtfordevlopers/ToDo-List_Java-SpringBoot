@@ -13,9 +13,12 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-@CrossOrigin(origins = "https://to-do-list-java-spring-boot.vercel.app")
+@CrossOrigin(origins = {
+    "https://to-do-list-java-spring-boot.vercel.app",
+    "https://to-do-list-java-spring-boot-git-main-builtfordevelopers-projects.vercel.app"
+})
 @RestController
-@RequestMapping("/api/tasks") // All endpoints in this class will start with /api/tasks
+@RequestMapping("/api/tasks")
 public class TaskController {
 
     @Autowired // Spring automatically provides an instance of TaskService
