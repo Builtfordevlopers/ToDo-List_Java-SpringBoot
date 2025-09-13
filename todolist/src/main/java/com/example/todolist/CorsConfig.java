@@ -17,7 +17,7 @@ public class CorsConfig {
                         .allowedOrigins(
                                 "https://to-do-list-java-spring-boot.vercel.app",
                                 "https://to-do-list-java-spring-boot-git-main-builtfordevlopers-projects.vercel.app",
-                                "https://to-do-list-java-spring-boot-9zk1umt7x.vercel.app" // The new URL
+                                "https://to-do-list-java-spring-boot-dqft2f34u.vercel.app" // Add this new URL
                         )
                         .allowedMethods("GET", "POST", "DELETE", "PUT", "OPTIONS")
                         .allowedHeaders("*");
