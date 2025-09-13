@@ -2,7 +2,8 @@ import { useState, useEffect } from 'react';
 import axios from 'axios';
 import './App.css';
 
-const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:8080/api/tasks';
+const API_URL = import.meta.env.VITE_API_URL || 'https://todo-list-java-springboot-lmlx.onrender.com/api/tasks';
+
 
 function App() {
   const [tasks, setTasks] = useState([]);
