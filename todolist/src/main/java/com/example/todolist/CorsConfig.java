@@ -15,8 +15,9 @@ public class CorsConfig {
             public void addCorsMappings(CorsRegistry registry) {
                 registry.addMapping("/api/**")
                         .allowedOrigins(
-                            "https://to-do-list-java-spring-boot.vercel.app",
-                            "https://to-do-list-java-spring-boot-git-main-builtfordevlopers-projects.vercel.app"
+                                "https://to-do-list-java-spring-boot.vercel.app",
+                                "https://to-do-list-java-spring-boot-git-main-builtfordevlopers-projects.vercel.app",
+                                "https://to-do-list-java-spring-boot-9zk1umt7x.vercel.app" // The new URL
                         )
                         .allowedMethods("GET", "POST", "DELETE", "PUT", "OPTIONS")
                         .allowedHeaders("*");
