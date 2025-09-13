@@ -6,46 +6,59 @@ const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:8080/api/tasks
 
 function App() {
   const [tasks, setTasks] = useState([]);
-  // New state for our form inputs
   const [taskName, setTaskName] = useState('');
   const [deadline, setDeadline] = useState('');
+  const [loading, setLoading] = useState(true); // NEW: loading state
+  const [error, setError] = useState(null);     // NEW: error state
 
   const fetchTasks = () => {
+    setLoading(true);
     axios.get(API_URL)
       .then(response => {
         setTasks(response.data);
+        setError(null);
       })
-      .catch(error => {
-        console.error('Error fetching tasks!', error);
-      });
+      .catch(() => {
+        setError('Error fetching tasks. Please try again.');
+      })
+      .finally(() => setLoading(false));
   };
 
   useEffect(() => {
     fetchTasks();
   }, []);
 
-  // Function to handle form submission
   const handleSubmit = (event) => {
-    event.preventDefault(); // Prevents the browser from reloading the page
+    event.preventDefault();
 
-    // Create a new task object from our form inputs
     const newTask = {
       taskName: taskName,
-      deadline: deadline
+      deadline: deadline // date string "YYYY-MM-DD"
     };
 
-    // Send the new task to the backend API
     axios.post(API_URL, newTask)
       .then(() => {
-        // After successfully adding, refresh the task list
         fetchTasks();
-        // Clear the form inputs
         setTaskName('');
         setDeadline('');
       })
-      .catch(error => {
-        console.error('Error adding task!', error);
+      .catch(() => {
+        setError('Error adding task. Please try again.');
       });
+  };
+
+  // NEW: Delete task function
+  const handleDelete = (id) => {
+    axios.delete(`${API_URL}/${id}`)
+      .then(() => fetchTasks())
+      .catch(() => setError('Error deleting task. Please try again.'));
+  };
+
+  // Function to display date nicely (avoid timezone issues)
+  const formatDate = (dateStr) => {
+    if (!dateStr) return '';
+    const date = new Date(dateStr);
+    return date.toISOString().split('T')[0]; // YYYY-MM-DD
   };
 
   return (
@@ -62,7 +75,7 @@ function App() {
           required
         />
         <input
-          type="date" // Use a date picker for the deadline
+          type="date"
           value={deadline}
           onChange={(e) => setDeadline(e.target.value)}
           required
@@ -70,18 +83,41 @@ function App() {
         <button type="submit">Add Task</button>
       </form>
 
+      {/* Show errors */}
+      {error && <p style={{ color: 'red' }}>{error}</p>}
+
       {/* Display Task List */}
-      <ul>
-        {tasks.length > 0 ? (
-          tasks.map(task => (
-            <li key={task.id}>
-              {task.taskName} - Deadline: {new Date(task.deadline).toLocaleDateString()}
-            </li>
-          ))
-        ) : (
-          <p>No tasks yet. Add one!</p>
-        )}
-      </ul>
+      {loading ? (
+        <p>Loading tasks...</p>
+      ) : (
+        <ul>
+          {tasks.length > 0 ? (
+            tasks.map(task => (
+              <li key={task.id}>
+                <span>
+                  {task.taskName} - Deadline: {formatDate(task.deadline)}
+                </span>
+                <button
+                  style={{
+                    marginLeft: '10px',
+                    padding: '6px 10px',
+                    backgroundColor: '#e74c3c',
+                    color: 'white',
+                    border: 'none',
+                    borderRadius: '6px',
+                    cursor: 'pointer'
+                  }}
+                  onClick={() => handleDelete(task.id)}
+                >
+                  Delete
+                </button>
+              </li>
+            ))
+          ) : (
+            <p>No tasks yet. Add one!</p>
+          )}
+        </ul>
+      )}
     </div>
   );
 }
